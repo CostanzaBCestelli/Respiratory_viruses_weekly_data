@@ -50,16 +50,6 @@ export default function Methods() {
           52 weeks of surveillance data.
         </p>
 
-        <h4>Protezione Civile - Italian COVID-19 Data</h4>
-        <p>
-          <strong>Source:</strong> Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri<br />
-          <strong>License:</strong> CC-BY-4.0
-        </p>
-        <p>
-          The Italian Civil Protection Department publishes daily COVID-19 case data at the regional level.
-          Our pipeline aggregates daily case counts (<code>nuovi_positivi</code>) to ISO week format
-          to enable weekly trend analysis consistent with other respiratory virus indicators.
-        </p>
       </section>
 
       <section>
@@ -200,15 +190,14 @@ export default function Methods() {
         <h3>Attribution and Licensing</h3>
         <p>
           <strong>ECDC ERVISS data:</strong> © European Centre for Disease Prevention and Control.
-          Data subject to ECDC terms of use. Visit{' '}
+          Data subject to ECDC EUPL-1.2 license. Visit{' '}
           <a href="https://erviss.org/" target="_blank" rel="noopener noreferrer">
             erviss.org
           </a>{' '}
-          for source documentation.
-        </p>
-        <p>
-          <strong>Protezione Civile COVID-19 data:</strong> Dati forniti dal Dipartimento della
-          Protezione Civile. Licensed under CC-BY-4.0.
+          for source documentation and{' '}
+          <a href="https://github.com/EU-ECDC/Respiratory_viruses_weekly_data" target="_blank" rel="noopener noreferrer">
+            GitHub repository
+          </a>.
         </p>
         <p>
           <strong>Website code:</strong> MIT License. Free to reuse with attribution.

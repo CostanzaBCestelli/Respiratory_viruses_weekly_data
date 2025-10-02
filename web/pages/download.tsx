@@ -63,39 +63,6 @@ export default function Download() {
           </ul>
         </div>
 
-        <div className="chart-container">
-          <h4>Protezione Civile COVID Regional Weekly Data</h4>
-          <p>
-            COVID-19 cases aggregated by region and ISO week from Italian Civil Protection daily data.
-          </p>
-          <a href="/data/pc_covid_region_weekly.jsonl" download className="download-link">
-            Download pc_covid_region_weekly.jsonl
-          </a>
-          <p>
-            <strong>Schema:</strong>
-          </p>
-          <pre>
-            <code>
-{`{
-  "source": "PC",
-  "iso_week": "2025-W37",
-  "region_code": "LIG",
-  "metric": "cases",
-  "value": 128
-}`}
-            </code>
-          </pre>
-          <p>
-            <strong>Fields:</strong>
-          </p>
-          <ul>
-            <li><code>source</code>: Always "PC" (Protezione Civile)</li>
-            <li><code>iso_week</code>: ISO 8601 week (YYYY-Www)</li>
-            <li><code>region_code</code>: Italian region code (2-3 letters, uppercase)</li>
-            <li><code>metric</code>: Always "cases"</li>
-            <li><code>value</code>: Total cases for that region and week</li>
-          </ul>
-        </div>
       </section>
 
       <section>
@@ -164,12 +131,8 @@ print(head(data))
         <h3>Licensing</h3>
         <div className="info-box">
           <p>
-            <strong>ECDC data:</strong> Subject to ECDC terms of use. Please attribute the
-            European Centre for Disease Prevention and Control as the data source.
-          </p>
-          <p>
-            <strong>Protezione Civile data:</strong> CC-BY-4.0. Please attribute:
-            "Dati forniti dal Dipartimento della Protezione Civile"
+            <strong>ECDC data:</strong> Licensed under EUPL-1.2 (European Union Public License).
+            Please attribute the European Centre for Disease Prevention and Control as the data source.
           </p>
           <p>
             When using this data, please also cite this dashboard as an intermediary processor
@@ -186,8 +149,7 @@ print(head(data))
           major version. Additional optional fields may be added in minor versions.
         </p>
         <p>
-          File URLs (<code>/data/ecdc_weekly.jsonl</code>, <code>/data/pc_covid_region_weekly.jsonl</code>)
-          will remain stable.
+          File URL (<code>/data/ecdc_weekly.jsonl</code>) will remain stable.
         </p>
       </section>
     </Layout>

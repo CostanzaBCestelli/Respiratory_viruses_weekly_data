@@ -180,7 +180,7 @@ This is a single-maintainer project. For data issues or questions, please open a
 ## License
 
 Code: MIT License
-Data: Subject to respective source licenses (ECDC, Protezione Civile)
+Data: Subject to ECDC EUPL-1.2 license
 
 ---
 
