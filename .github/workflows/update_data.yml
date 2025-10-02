@@ -32,9 +32,6 @@ jobs:
       - name: Fetch and process data
         run: |
           python etl/fetch_and_build.py --real
-        # Optional: Override default URL if needed by adding env vars
-        # env:
-        #   ECDC_CSV_URL: ${{ secrets.ECDC_CSV_URL }}
       
       - name: Check for changes
         id: check_changes
