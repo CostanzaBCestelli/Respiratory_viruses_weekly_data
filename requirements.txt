@@ -1,0 +1,12 @@
+# Python standard library only - no external dependencies required
+# The ETL pipeline uses only built-in modules for maximum portability
+#
+# To run the ETL:
+#   python etl/fetch_and_build.py --real
+#
+# To run tests:
+#   python -m pytest tests/test_schemas.py
+#
+# Optional testing dependency:
+pytest>=7.4.0
+

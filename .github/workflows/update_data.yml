@@ -1,0 +1,82 @@
+name: Update Respiratory Virus Data
+
+on:
+  # Run every Tuesday at 07:15 UTC (08:15 CET, 09:15 CEST)
+  schedule:
+    - cron: '15 7 * * 2'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # No external dependencies needed - using standard library only
+      
+      - name: Fetch and process data
+        run: |
+          python etl/fetch_and_build.py --real
+        env:
+          # Optional: Override default URL if needed
+          # ECDC_CSV_URL: ${{ secrets.ECDC_CSV_URL }}
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --exit-code data/*.jsonl || echo "changed=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push if changed
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/*.jsonl
+          git commit -m "chore: update respiratory virus data - $(date +'%Y-%m-%d')"
+          git push
+      
+      - name: Build website
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          cd web
+          npm ci
+          npm run build
+          npm run export
+      
+      - name: Deploy to GitHub Pages
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./web/out
+          publish_branch: gh-pages
+          cname: # Add custom domain if needed
+      
+      - name: Summary
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          echo "✅ Data updated and website deployed successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Updated files:" >> $GITHUB_STEP_SUMMARY
+          git diff --name-only HEAD~1 HEAD | grep -E '\.jsonl$' >> $GITHUB_STEP_SUMMARY || true
+      
+      - name: No changes summary
+        if: steps.check_changes.outputs.changed != 'true'
+        run: |
+          echo "ℹ️ No data changes detected. Data is up to date." >> $GITHUB_STEP_SUMMARY
+
