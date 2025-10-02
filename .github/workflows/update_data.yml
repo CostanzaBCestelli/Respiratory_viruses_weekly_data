@@ -50,22 +50,23 @@ jobs:
           git commit -m "chore: update respiratory virus data - $(date +'%Y-%m-%d')"
           git push
       
-      - name: Build website
-        if: steps.check_changes.outputs.changed == 'true'
-        run: |
-          cd web
-          npm ci
-          npm run build
-          npm run export
-      
-      - name: Deploy to GitHub Pages
-        if: steps.check_changes.outputs.changed == 'true'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./web/out
-          publish_branch: gh-pages
-          cname: # Add custom domain if needed
+      # Website build disabled for now - uncomment when ready
+      # - name: Build website
+      #   if: steps.check_changes.outputs.changed == 'true'
+      #   run: |
+      #     cd web
+      #     npm ci
+      #     npm run build
+      #     npm run export
+      # 
+      # - name: Deploy to GitHub Pages
+      #   if: steps.check_changes.outputs.changed == 'true'
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./web/out
+      #     publish_branch: gh-pages
+      #     cname: # Add custom domain if needed
       
       - name: Summary
         if: steps.check_changes.outputs.changed == 'true'
